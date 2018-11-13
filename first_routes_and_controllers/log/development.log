@@ -1190,3 +1190,52 @@ Migrating to CreateArtworkShares (20181113004549)
   [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
   [1m[36mArtwork Load (1.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks"[0m
   [1m[36mArtworkShare Load (1.3ms)[0m  [1m[34mSELECT "artwork_shares".* FROM "artwork_shares"[0m
+Started GET "/artworks" for 127.0.0.1 at 2018-11-12 17:27:18 -0800
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/var/rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by ArtworksController#index as */*
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant ArtworksController::Artworks):
+  
+app/controllers/artworks_controller.rb:3:in `index'
+Started GET "/artworks" for 127.0.0.1 at 2018-11-12 17:27:51 -0800
+Processing by ArtworksController#index as */*
+  [1m[36mArtwork Load (1.2ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks"[0m
+  ↳ app/controllers/artworks_controller.rb:4
+Completed 200 OK in 83ms (Views: 23.9ms | ActiveRecord: 12.1ms)
+
+
+Started POST "/users" for 127.0.0.1 at 2018-11-12 17:30:06 -0800
+Processing by UsersController#create as */*
+  Parameters: {"user"=>{"username"=>"Mary Jo"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:10
+  [1m[36mUser Exists (2.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "Mary Jo"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:10
+  [1m[36mUser Create (42.9ms)[0m  [1m[32mINSERT INTO "users" ("created_at", "updated_at", "username") VALUES ($1, $2, $3) RETURNING "id"[0m  [["created_at", "2018-11-13 01:30:06.396464"], ["updated_at", "2018-11-13 01:30:06.396464"], ["username", "Mary Jo"]]
+  ↳ app/controllers/users_controller.rb:10
+  [1m[35m (95.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:10
+Completed 200 OK in 244ms (Views: 0.4ms | ActiveRecord: 147.1ms)
+
+
+Started POST "/artworks" for 127.0.0.1 at 2018-11-12 17:31:41 -0800
+Processing by ArtworksController#create as */*
+  Parameters: {"artwork"=>{"title"=>"Magnum Opus", "image_url"=>"beadnecklaces.com", "artist_id"=>"5"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/artworks_controller.rb:10
+  [1m[36mArtwork Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "artworks" WHERE "artworks"."title" = $1 AND "artworks"."artist_id" = $2 LIMIT $3[0m  [["title", "Magnum Opus"], ["artist_id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:10
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/artworks_controller.rb:10
+  [1m[36mArtwork Create (0.7ms)[0m  [1m[32mINSERT INTO "artworks" ("title", "image_url", "artist_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["title", "Magnum Opus"], ["image_url", "beadnecklaces.com"], ["artist_id", 5], ["created_at", "2018-11-13 01:31:41.825556"], ["updated_at", "2018-11-13 01:31:41.825556"]]
+  ↳ app/controllers/artworks_controller.rb:10
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/artworks_controller.rb:10
+Completed 200 OK in 41ms (Views: 0.4ms | ActiveRecord: 2.7ms)
+
+
+  [1m[36mArtwork Load (1.1ms)[0m  [1m[34mSELECT "artworks".* FROM "artworks"[0m
